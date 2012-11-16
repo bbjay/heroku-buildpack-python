@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set +e
+
+# Syntax sugar.
+indent() {
+  RE="s/^/       /"
+  [ $(uname) == "Darwin" ] && sed -l "$RE" || sed -u "$RE"
+}
+
+
+# Check if south migration is configured properly.
+python $MANAGE_FILE migrate --db-dry-run &> /dev/null && RUN_MIGRATION=true
+
+# Run migration if south config appears to be kosher.
+if [ "$RUN_MIGRATION" ]; then
+
+    echo "-----> Run south migrations"
+    python $MANAGE_FILE migrate  2>&1 | indent
+
+    [ $? -ne 0 ] && {
+        echo " !     Error running manage.py migrate"
+    }
+fi
+
+echo
+

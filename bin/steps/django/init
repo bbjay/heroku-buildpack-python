@@ -30,3 +30,8 @@ if [ ! "$DISABLE_COLLECTSTATIC" ]; then
     source $BIN_DIR/steps/django/collectstatic
 fi
 
+
+if [ ! "$DISABLE_MIGRATION" ]; then
+    source $BIN_DIR/steps/django/migrate
+fi
+
