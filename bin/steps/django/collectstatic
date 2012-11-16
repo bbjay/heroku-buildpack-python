@@ -13,7 +13,7 @@ indent() {
 python $MANAGE_FILE collectstatic --dry-run --noinput &> /dev/null && RUN_COLLECTSTATIC=true
 
 # Compile assets if collectstatic appears to be kosher.
-if [ "$RUN_COLLECTSTATIC" ]; then
+if [ true ]; then
 
     echo "-----> Collecting static files"
     python $MANAGE_FILE collectstatic --noinput  2>&1 | sed '/^Copying/d;/^$/d;/^ /d' | indent
